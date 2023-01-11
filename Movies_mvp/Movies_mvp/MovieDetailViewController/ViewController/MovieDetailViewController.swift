@@ -4,7 +4,7 @@
 import SafariServices
 import UIKit
 
-/// Экран детального описания фильма
+/// Детальное описание фильма
 final class MovieDetailViewController: UIViewController {
     // MARK: - Constants
 
@@ -23,6 +23,7 @@ final class MovieDetailViewController: UIViewController {
         static let gradientImageViewName = "gradient"
         static let stringFormat = "%.1f"
         static let genresLabelText = "Жанры:"
+        static let errorTitle = "Ошибка"
     }
 
     // MARK: - Visual Components
@@ -45,14 +46,10 @@ final class MovieDetailViewController: UIViewController {
 
     // MARK: - Public Properties
 
-    var movieId = 0
+    var presenter: MovieDetailPresenterProtocol?
 
     // MARK: - Private properties
 
-    private var movieDetail: MovieDetail?
-    private var trailers: Videos?
-    private var networkService = NetworkService()
-    private var actors: Actors?
     private var shareUrlImdb = ""
 
     // MARK: - Lifecycle
@@ -72,48 +69,16 @@ final class MovieDetailViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func loadData() {
-        networkService.fetchDetails(for: movieId, complition: { [weak self] item in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch item {
-                case let .success(data):
-                    self.movieDetail = data
-                    self.setUI(movieDetail: self.movieDetail)
-                case let .failure(error):
-                    print(error)
-                }
-            }
-        })
+    private func fetchMovieDetails() {
+        presenter?.fetchMovieDetails()
     }
 
-    private func loadTrailers() {
-        networkService.fetchTrailer(for: movieId, complition: { [weak self] item in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch item {
-                case let .success(data):
-                    self.trailers = data
-                case let .failure(error):
-                    print(error)
-                }
-            }
-        })
+    private func fetchTrailer() {
+        presenter?.fetchTrailer()
     }
 
-    private func loadCast() {
-        networkService.fetchCast(for: movieId, complition: { [weak self] item in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch item {
-                case let .success(data):
-                    self.actors = data
-                    self.collectionView.reloadData()
-                case let .failure(error):
-                    print(error)
-                }
-            }
-        })
+    private func fetchCast() {
+        presenter?.fetchCast()
     }
 
     private func setupNavigationController() {
@@ -131,22 +96,23 @@ final class MovieDetailViewController: UIViewController {
         guard let movieDetail = movieDetail else { return }
         setPostersImageView(movieDetail: movieDetail)
         setPosterImageView(movieDetail: movieDetail)
+        setGenresLabel(movieDetail: movieDetail)
         titleLabel.text = movieDetail.title
         setTimeLabel(movieDetail: movieDetail)
         setVoteAverageLabel(movieDetail: movieDetail)
-        shareUrlImdb = "\(Api.imdbUrlString)\(movieDetail.imdbId ?? "")"
+        shareUrlImdb = "\(NetworkApi.imdbUrlString)\(movieDetail.imdbId ?? "")"
         overviewLabel.text = movieDetail.overview
     }
 
     private func setPostersImageView(movieDetail: MovieDetail) {
-        let moviePosterString = Api.posterUrlString + movieDetail.backdropPath
+        let moviePosterString = NetworkApi.posterUrlString + movieDetail.backdropPath
         guard let url = URL(string: moviePosterString) else { return }
         backgroundImageView.loadImageWithUrl(url)
     }
 
     private func setPosterImageView(movieDetail: MovieDetail) {
         guard let posterPath = movieDetail.posterPath else { return }
-        let moviePosterString = Api.posterUrlString + posterPath
+        let moviePosterString = NetworkApi.posterUrlString + posterPath
         guard let url = URL(string: moviePosterString) else { return }
         posterImageView.loadImageWithUrl(url)
     }
@@ -163,37 +129,52 @@ final class MovieDetailViewController: UIViewController {
     }
 
     private func setGenresLabel(movieDetail: MovieDetail) {
-        var genres: [String] = []
-        for index in movieDetail.genres {
-            genres.append(index.name)
-        }
-        genresLabel.text = "\(Constants.genresLabelText) \(genres.joined(separator: ", "))"
+        genresLabel.text = "\(Constants.genresLabelText) \(movieDetail.genres.joined(separator: ", "))"
     }
 
-    @objc private func goToImdbButtonAction() {
-        guard let movieDetail = movieDetail?.imdbId,
-              let url = URL(string: "\(Api.imdbUrlString)\(movieDetail)") else { return }
-        let vc = SFSafariViewController(url: url)
-        present(vc, animated: true, completion: .none)
-    }
-
-    @objc private func watchTrailerButtonAction() {
-        guard let key = trailers?.videos.first?.key,
-              let url = URL(string: "\(Api.youtubeUrlString)\(key)")
-        else {
-            showAlert(title: Constants.alertTitle, message: Constants.alertMessage)
-            return
-        }
+    private func presentSafariViewController(url: URL) {
         let safariViewController = SFSafariViewController(url: url)
         present(safariViewController, animated: true, completion: .none)
     }
 
+    @objc private func goToImdbButtonAction() {
+        guard let movieDetail = presenter?.movieDetail?.imdbId,
+              let url = URL(string: "\(NetworkApi.imdbUrlString)\(movieDetail)") else { return }
+        presentSafariViewController(url: url)
+    }
+
+    @objc private func watchTrailerButtonAction() {
+        guard let key = presenter?.trailers.first?.key,
+              let url = URL(string: "\(NetworkApi.youtubeUrlString)\(key)")
+        else {
+            showAlert(title: Constants.alertTitle, message: Constants.alertMessage)
+            return
+        }
+        presentSafariViewController(url: url)
+    }
+
     @objc private func shareButtonAction() {
         let activityViewController = UIActivityViewController(
-            activityItems: [movieDetail?.title ?? "", shareUrlImdb],
+            activityItems: [presenter?.movieDetail?.title ?? "", shareUrlImdb],
             applicationActivities: nil
         )
         present(activityViewController, animated: true)
+    }
+}
+
+// MARK: - MovieDetailViewProtocol
+
+extension MovieDetailViewController: MovieDetailViewProtocol {
+    func succes() {
+        collectionView.reloadData()
+    }
+
+    func failure(_ error: Error) {
+        showAlert(title: Constants.errorTitle, message: error.localizedDescription)
+    }
+
+    func setupUI(movieDetail: MovieDetail?) {
+        setUI(movieDetail: movieDetail)
     }
 }
 
@@ -201,7 +182,7 @@ final class MovieDetailViewController: UIViewController {
 
 extension MovieDetailViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        actors?.actors.count ?? 0
+        presenter?.actors.count ?? 0
     }
 
     func collectionView(
@@ -211,7 +192,7 @@ extension MovieDetailViewController: UICollectionViewDataSource {
         guard let cell = collectionView
             .dequeueReusableCell(withReuseIdentifier: Constants.cellId, for: indexPath) as? ActorCollectionViewCell
         else { return UICollectionViewCell() }
-        guard let actor = actors?.actors[indexPath.row] else { return UICollectionViewCell() }
+        guard let actor = presenter?.actors[indexPath.row] else { return UICollectionViewCell() }
         cell.configure(model: actor)
         return cell
     }
@@ -245,9 +226,9 @@ private extension MovieDetailViewController {
     }
 
     func setupBinding() {
-        loadData()
-        loadTrailers()
-        loadCast()
+        fetchMovieDetails()
+        fetchTrailer()
+        fetchCast()
     }
 
     func setUpConstraints() {

@@ -52,7 +52,7 @@ final class MovieCatalogTableViewCell: UITableViewCell {
 
     private func setPosterImageView(movie: Movie) {
         guard let posterPath = movie.posterPath else { return }
-        let moviePosterString = Api.posterUrlString + posterPath
+        let moviePosterString = NetworkApi.posterUrlString + posterPath
         guard let url = URL(string: moviePosterString) else { return }
         posterImageView.loadImageWithUrl(url)
     }

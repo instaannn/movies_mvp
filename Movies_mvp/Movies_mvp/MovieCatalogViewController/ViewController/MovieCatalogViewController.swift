@@ -10,6 +10,7 @@ final class MovieCatalogViewController: UIViewController {
     private enum Constants {
         static let segmentControlItems = ["Popular", "TopRated", "Upcoming"]
         static let cellIdentifier = "Cell"
+        static let errorTitle = "Ошибка"
     }
 
     // MARK: - Private visual Components
@@ -18,13 +19,9 @@ final class MovieCatalogViewController: UIViewController {
     private lazy var containerView = UIView()
     private lazy var categorySegmentControl = SegmentControl(items: Constants.segmentControlItems)
 
-    // MARK: - Private properties
+    // MARK: - Public Properties
 
-    private var networkService = NetworkService()
-    private var movies: [Movie] = []
-    private var currentPage = 1
-    private var hasNextPage = true
-    private var currentRequestType: RequestType = .popular
+    var presenter: MovieCatalogPresenterProtocol?
 
     // MARK: - Lifecycle
 
@@ -49,27 +46,11 @@ final class MovieCatalogViewController: UIViewController {
     // MARK: - Private methods
 
     func update() {
-        if hasNextPage {
-            currentPage += 1
-            loadData(requestType: currentRequestType)
-            hasNextPage = false
-        }
+        presenter?.updateNextPage()
     }
 
-    private func loadData(requestType: RequestType) {
-        networkService.fetchResult(page: currentPage, requestType: requestType, complition: { [weak self] item in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                switch item {
-                case let .success(data):
-                    self.movies += data.movies
-                    self.hasNextPage = true
-                    self.tableView.reloadData()
-                case let .failure(error):
-                    print(error)
-                }
-            }
-        })
+    private func fetchResult(requestType: RequestType) {
+        presenter?.fetchMovies(requestType: requestType)
     }
 
     private func setNavigationBarHidden(_ isHidden: Bool) {
@@ -89,35 +70,28 @@ final class MovieCatalogViewController: UIViewController {
     }
 
     private func goToDetailMoviewViewController(id: Int) {
-        let movieDetailViewController = MovieDetailViewController()
-        movieDetailViewController.movieId = id
-        navigationController?.pushViewController(movieDetailViewController, animated: true)
+        presenter?.selectMovie(id: id)
     }
 
     private func updateForSegment() {
-        movies.removeAll()
-        currentPage = 1
-        categorySegmentControl.underlinePosition()
+        presenter?.updateForSegment()
     }
 
     @objc private func segmentControlAction(_ sender: UISegmentedControl) {
-        let selectIndex = sender.selectedSegmentIndex
-        switch selectIndex {
-        case 0:
-            updateForSegment()
-            currentRequestType = .popular
-            loadData(requestType: currentRequestType)
-        case 1:
-            updateForSegment()
-            currentRequestType = .topRated
-            loadData(requestType: currentRequestType)
-        case 2:
-            updateForSegment()
-            currentRequestType = .upcoming
-            loadData(requestType: currentRequestType)
-        default:
-            break
-        }
+        presenter?.segmentControlUpdate(index: sender.selectedSegmentIndex)
+        categorySegmentControl.underlinePosition()
+    }
+}
+
+// MARK: - MovieCatalogViewProtocol
+
+extension MovieCatalogViewController: MovieCatalogViewProtocol {
+    func succes() {
+        tableView.reloadData()
+    }
+
+    func failure(_ error: Error) {
+        showAlert(title: Constants.errorTitle, message: error.localizedDescription)
     }
 }
 
@@ -125,7 +99,7 @@ final class MovieCatalogViewController: UIViewController {
 
 extension MovieCatalogViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        goToDetailMoviewViewController(id: movies[indexPath.row].id)
+        goToDetailMoviewViewController(id: presenter?.movies[indexPath.row].id ?? 0)
     }
 }
 
@@ -133,13 +107,14 @@ extension MovieCatalogViewController: UITableViewDelegate {
 
 extension MovieCatalogViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        movies.count
+        presenter?.movies.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.cellIdentifier
         ) as? MovieCatalogTableViewCell else { return UITableViewCell() }
+        guard let movies = presenter?.movies else { return UITableViewCell() }
         if indexPath.row == movies.count - 1 {
             update()
         }
@@ -160,7 +135,7 @@ private extension MovieCatalogViewController {
     }
 
     func setupBinding() {
-        loadData(requestType: currentRequestType)
+        presenter?.fetchMovies(requestType: .popular)
     }
 
     func setUpConstraints() {

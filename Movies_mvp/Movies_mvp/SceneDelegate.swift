@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Private properties
 
     private var navigationController = UINavigationController()
-    private let movieCatalogViewController = MovieCatalogViewController()
+    private var builder = Builder()
 
     // MARK: - Public methods
 
@@ -26,7 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.backgroundColor = .white
-        navigationController = UINavigationController(rootViewController: movieCatalogViewController)
+        let router = Router(navigationController: navigationController, builder: builder)
+        router.movieCatalogViewController()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }

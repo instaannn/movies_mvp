@@ -1,27 +1,38 @@
 // MovieDetail.swift
 // Copyright © RoadMap. All rights reserved.
 
+import SwiftyJSON
+
 /// Модель детального описания фильма
-struct MovieDetail: Decodable {
+struct MovieDetail {
+    /// Фоновая каринка
     let backdropPath: String
+    /// Постер
     let posterPath: String?
+    /// Название
     let title: String
+    /// Время фильма
     let runtime: Int?
+    /// Рейтинг
     let voteAverage: Double
+    /// Ссылка на imdbId
     let imdbId: String?
+    /// Дата релиза
     let releaseDateString: String
-    let genres: [Genre]
+    /// Жанры
+    let genres: [String]
+    /// Описание
     let overview: String
 
-    private enum CodingKeys: String, CodingKey {
-        case backdropPath = "backdrop_path"
-        case posterPath = "poster_path"
-        case title
-        case runtime
-        case voteAverage = "vote_average"
-        case imdbId = "imdb_id"
-        case releaseDateString = "release_date"
-        case genres
-        case overview
+    init(json: JSON) {
+        backdropPath = json["backdrop_path"].stringValue
+        posterPath = json["poster_path"].string
+        title = json["title"].stringValue
+        runtime = json["runtime"].int
+        voteAverage = json["vote_average"].doubleValue
+        imdbId = json["imdb_id"].string
+        releaseDateString = json["release_date"].stringValue
+        genres = json["genres"].arrayValue.map { $0["name"].stringValue }
+        overview = json["overview"].stringValue
     }
 }
