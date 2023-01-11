@@ -7,7 +7,7 @@ import Foundation
 protocol MovieCatalogPresenterProtocol {
     var movies: [Movie] { get set }
 
-    func fetchResult(requestType: RequestType)
+    func fetchMovies(requestType: RequestType)
     func updateNextPage()
     func segmentControlUpdate(index: Int)
     func updateForSegment()

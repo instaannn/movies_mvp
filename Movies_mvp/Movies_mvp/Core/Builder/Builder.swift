@@ -1,6 +1,7 @@
 // Builder.swift
 // Copyright © RoadMap. All rights reserved.
 
+/// Билдер
 final class Builder: BuilderProtocol {
     // MARK: - Public methods
 

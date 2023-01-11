@@ -27,8 +27,8 @@ final class MovieDetailPresenter: MovieDetailPresenterProtocol {
 
     // MARK: - Public methods
 
-    func fetchDetails() {
-        networkService.fetchDetails(for: movieId, completion: { [weak self] result in
+    func fetchMovieDetails() {
+        networkService.fetchMovieDetails(for: movieId, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(movieDetail):

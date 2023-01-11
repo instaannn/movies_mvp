@@ -9,7 +9,7 @@ protocol MovieDetailPresenterProtocol {
     var trailers: [Video] { get set }
     var actors: [Actor] { get set }
 
-    func fetchDetails()
+    func fetchMovieDetails()
     func fetchTrailer()
     func fetchCast()
 }

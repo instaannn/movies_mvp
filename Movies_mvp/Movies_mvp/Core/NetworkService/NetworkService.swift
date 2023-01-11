@@ -4,7 +4,7 @@
 import Foundation
 import SwiftyJSON
 
-/// Вызовы сетевых запросов
+/// Сетевой сервис
 final class NetworkService: NetworkCoreService, NetworkServiceProtocol {
     // MARK: - Constants
 
@@ -16,7 +16,7 @@ final class NetworkService: NetworkCoreService, NetworkServiceProtocol {
 
     // MARK: - Public methods
 
-    func fetchResult(page: Int, requestType: RequestType, completion: @escaping (Result<[Movie], Error>) -> Void) {
+    func fetchMovies(page: Int, requestType: RequestType, completion: @escaping (Result<[Movie], Error>) -> Void) {
         downloadJsonResult(page: page, requestType: requestType) { result in
             switch result {
             case let .success(json):
@@ -28,7 +28,7 @@ final class NetworkService: NetworkCoreService, NetworkServiceProtocol {
         }
     }
 
-    func fetchDetails(for id: Int, completion: @escaping (Result<MovieDetail, Error>) -> Void) {
+    func fetchMovieDetails(for id: Int, completion: @escaping (Result<MovieDetail, Error>) -> Void) {
         downloadJson(urlString: "\(NetworkApi.detailUrlString)\(id)\(Constants.detailsUrlString)") { result in
             switch result {
             case let .success(json):

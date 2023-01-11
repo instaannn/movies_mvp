@@ -50,7 +50,7 @@ final class MovieCatalogViewController: UIViewController {
     }
 
     private func fetchResult(requestType: RequestType) {
-        presenter?.fetchResult(requestType: requestType)
+        presenter?.fetchMovies(requestType: requestType)
     }
 
     private func setNavigationBarHidden(_ isHidden: Bool) {
@@ -135,7 +135,7 @@ private extension MovieCatalogViewController {
     }
 
     func setupBinding() {
-        presenter?.fetchResult(requestType: .popular)
+        presenter?.fetchMovies(requestType: .popular)
     }
 
     func setUpConstraints() {

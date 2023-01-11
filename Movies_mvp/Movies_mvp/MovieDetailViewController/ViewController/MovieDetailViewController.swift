@@ -69,8 +69,8 @@ final class MovieDetailViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func fetchDetails() {
-        presenter?.fetchDetails()
+    private func fetchMovieDetails() {
+        presenter?.fetchMovieDetails()
     }
 
     private func fetchTrailer() {
@@ -226,7 +226,7 @@ private extension MovieDetailViewController {
     }
 
     func setupBinding() {
-        fetchDetails()
+        fetchMovieDetails()
         fetchTrailer()
         fetchCast()
     }

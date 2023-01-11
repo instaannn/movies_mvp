@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Основной роутер
+/// Протокол основного роутера
 protocol RouterMainProtocol {
     var navigationController: UINavigationController? { get set }
     var builder: BuilderProtocol? { get set }

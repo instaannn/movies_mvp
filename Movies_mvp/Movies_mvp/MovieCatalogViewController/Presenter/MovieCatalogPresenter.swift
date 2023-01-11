@@ -28,8 +28,8 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
 
     // MARK: - Public methods
 
-    func fetchResult(requestType: RequestType) {
-        networkService.fetchResult(page: currentPage, requestType: requestType, completion: { [weak self] result in
+    func fetchMovies(requestType: RequestType) {
+        networkService.fetchMovies(page: currentPage, requestType: requestType, completion: { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(data):
@@ -45,7 +45,7 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
     func updateNextPage() {
         if hasNextPage {
             currentPage += 1
-            fetchResult(requestType: currentRequestType)
+            fetchMovies(requestType: currentRequestType)
             hasNextPage = false
         }
     }
@@ -60,15 +60,15 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
         case 0:
             updateForSegment()
             currentRequestType = .popular
-            fetchResult(requestType: currentRequestType)
+            fetchMovies(requestType: currentRequestType)
         case 1:
             updateForSegment()
             currentRequestType = .topRated
-            fetchResult(requestType: currentRequestType)
+            fetchMovies(requestType: currentRequestType)
         case 2:
             updateForSegment()
             currentRequestType = .upcoming
-            fetchResult(requestType: currentRequestType)
+            fetchMovies(requestType: currentRequestType)
         default:
             break
         }
