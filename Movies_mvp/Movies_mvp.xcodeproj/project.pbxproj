@@ -43,7 +43,7 @@
 		85D419A9296DF7FA0065A8E8 /* MovieDetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419A8296DF7FA0065A8E8 /* MovieDetailViewProtocol.swift */; };
 		85D419AB296DF8810065A8E8 /* MovieDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419AA296DF8810065A8E8 /* MovieDetailPresenter.swift */; };
 		85D419AD296DF8890065A8E8 /* MovieDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419AC296DF8890065A8E8 /* MovieDetailPresenterProtocol.swift */; };
-		85D419B0296E16A80065A8E8 /* RouterMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419AF296E16A80065A8E8 /* RouterMain.swift */; };
+		85D419B0296E16A80065A8E8 /* RouterMainProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419AF296E16A80065A8E8 /* RouterMainProtocol.swift */; };
 		85D419B2296E17670065A8E8 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419B1296E17670065A8E8 /* RouterProtocol.swift */; };
 		85D419B4296E180A0065A8E8 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D419B3296E180A0065A8E8 /* Router.swift */; };
 /* End PBXBuildFile section */
@@ -85,7 +85,7 @@
 		85D419A8296DF7FA0065A8E8 /* MovieDetailViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewProtocol.swift; sourceTree = "<group>"; };
 		85D419AA296DF8810065A8E8 /* MovieDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenter.swift; sourceTree = "<group>"; };
 		85D419AC296DF8890065A8E8 /* MovieDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenterProtocol.swift; sourceTree = "<group>"; };
-		85D419AF296E16A80065A8E8 /* RouterMain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMain.swift; sourceTree = "<group>"; };
+		85D419AF296E16A80065A8E8 /* RouterMainProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterMainProtocol.swift; sourceTree = "<group>"; };
 		85D419B1296E17670065A8E8 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		85D419B3296E180A0065A8E8 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -324,7 +324,7 @@
 		85D419AE296E169A0065A8E8 /* Router */ = {
 			isa = PBXGroup;
 			children = (
-				85D419AF296E16A80065A8E8 /* RouterMain.swift */,
+				85D419AF296E16A80065A8E8 /* RouterMainProtocol.swift */,
 				85D419B1296E17670065A8E8 /* RouterProtocol.swift */,
 				85D419B3296E180A0065A8E8 /* Router.swift */,
 			);
@@ -486,7 +486,7 @@
 				851E71EE29069D00008A3DE7 /* SceneDelegate.swift in Sources */,
 				851E723C290A9D6E008A3DE7 /* Video.swift in Sources */,
 				851E7243290AA162008A3DE7 /* ActorCollectionViewCell.swift in Sources */,
-				85D419B0296E16A80065A8E8 /* RouterMain.swift in Sources */,
+				85D419B0296E16A80065A8E8 /* RouterMainProtocol.swift in Sources */,
 				85D419A4296DD3000065A8E8 /* MovieCatalogPresenter.swift in Sources */,
 				851E722D29085794008A3DE7 /* DateFormatter+Extension.swift in Sources */,
 				851E7245290ABB27008A3DE7 /* UIViewController+Extension.swift in Sources */,

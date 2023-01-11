@@ -5,14 +5,23 @@ import SwiftyJSON
 
 /// Модель детального описания фильма
 struct MovieDetail {
+    /// Фоновая каринка
     let backdropPath: String
+    /// Постер
     let posterPath: String?
+    /// Название
     let title: String
+    /// Время фильма
     let runtime: Int?
+    /// Рейтинг
     let voteAverage: Double
+    /// Ссылка на imdbId
     let imdbId: String?
+    /// Дата релиза
     let releaseDateString: String
+    /// Жанры
     let genres: [String]
+    /// Описание
     let overview: String
 
     init(json: JSON) {

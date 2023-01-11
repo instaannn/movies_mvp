@@ -5,7 +5,9 @@ import SwiftyJSON
 
 /// Модель информации об актере
 struct Actor {
+    /// Имя актера
     let name: String
+    /// Постер
     let profilePath: String?
 
     init(json: JSON) {

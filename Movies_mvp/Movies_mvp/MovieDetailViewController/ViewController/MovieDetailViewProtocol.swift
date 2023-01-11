@@ -5,5 +5,5 @@
 protocol MovieDetailViewProtocol: AnyObject {
     func succes()
     func failure(_ error: Error)
-    func setUI(movieDetail: MovieDetail?)
+    func setupUI(movieDetail: MovieDetail?)
 }

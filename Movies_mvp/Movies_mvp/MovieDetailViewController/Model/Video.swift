@@ -5,6 +5,7 @@ import SwiftyJSON
 
 /// Модель отдельного видео
 struct Video {
+    /// Ключ  видео
     let key: String
 
     init(json: JSON) {

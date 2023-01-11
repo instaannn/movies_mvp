@@ -92,7 +92,7 @@ final class MovieDetailViewController: UIViewController {
         )
     }
 
-    internal func setUI(movieDetail: MovieDetail?) {
+    private func setUI(movieDetail: MovieDetail?) {
         guard let movieDetail = movieDetail else { return }
         setPostersImageView(movieDetail: movieDetail)
         setPosterImageView(movieDetail: movieDetail)

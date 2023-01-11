@@ -33,7 +33,7 @@ final class MovieDetailPresenter: MovieDetailPresenterProtocol {
             switch result {
             case let .success(movieDetail):
                 self.movieDetail = movieDetail
-                self.view?.setUI(movieDetail: movieDetail)
+                self.view?.setupUI(movieDetail: movieDetail)
             case let .failure(error):
                 self.view?.failure(error)
             }

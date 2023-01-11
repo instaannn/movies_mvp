@@ -4,7 +4,7 @@
 import Foundation
 
 /// Протокол роутера
-protocol RouterProtocol: RouterMain {
+protocol RouterProtocol: RouterMainProtocol {
     func movieCatalogViewController()
     func showMovieDetailViewController(id: Int)
 }
