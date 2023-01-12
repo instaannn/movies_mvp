@@ -5,6 +5,12 @@ import Foundation
 
 /// Презентер каталога фильмов
 final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let key = "token"
+    }
+
     // MARK: - Public Properties
 
     weak var view: MovieCatalogViewProtocol?
@@ -31,6 +37,7 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
         self.networkService = networkService
         self.router = router
         self.realmService = realmService
+        saveToken()
     }
 
     // MARK: - Public methods
@@ -99,5 +106,9 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
                 self.view?.failure(error)
             }
         })
+    }
+
+    private func saveToken() {
+        StorageService.shared.set(Constants.key)
     }
 }

@@ -26,7 +26,7 @@ class NetworkCoreService {
         requestType: RequestType,
         completion: @escaping (Result<JSON, Error>) -> Void
     ) {
-        var queryItems = [URLQueryItem(name: "api_key", value: NetworkApi.token)]
+        var queryItems = [URLQueryItem(name: "api_key", value: getToken())]
         queryItems.append(URLQueryItem(name: "language", value: "ru-RU"))
         queryItems.append(URLQueryItem(name: "page", value: "\(page)"))
 
@@ -47,5 +47,11 @@ class NetworkCoreService {
                 completion(.failure(error))
             }
         }
+    }
+
+    // MARK: - Private Methods
+
+    private func getToken() -> String {
+        StorageService.shared.get("token") ?? ""
     }
 }
