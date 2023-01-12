@@ -36,9 +36,9 @@ final class MovieDetailPresenter: MovieDetailPresenterProtocol {
     // MARK: - Public methods
 
     func loadMovieDetails() {
-        guard let movieDetail = realmService.get(MovieDetail.self) else { return fetchMovieDetails() }
+        guard let movieDetail = realmService.get(MovieDetail.self, id: movieId) else { return fetchMovieDetails() }
         self.movieDetail = movieDetail
-        view?.success()
+        view?.setupUI(movieDetail: movieDetail)
     }
 
     func fetchTrailer() {

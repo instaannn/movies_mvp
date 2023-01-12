@@ -23,7 +23,7 @@ final class MovieDetail: Object {
     /// Описание
     @Persisted var overview: String
     /// Id фильма
-    @Persisted(primaryKey: true) var id: String
+    @Persisted(primaryKey: true) var id = 0
 
     convenience init(json: JSON) {
         self.init()
@@ -35,6 +35,6 @@ final class MovieDetail: Object {
         imdbId = json["imdb_id"].string
         releaseDateString = json["release_date"].stringValue
         overview = json["overview"].stringValue
-        id = json["id"].stringValue
+        id = json["id"].intValue
     }
 }

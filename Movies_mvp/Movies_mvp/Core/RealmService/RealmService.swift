@@ -33,10 +33,10 @@ final class RealmService: RealmServiceProtocol {
         return nil
     }
 
-    func get<T: Object>(_ type: T.Type) -> MovieDetail? {
+    func get<T: Object>(_ type: T.Type, id: Int) -> MovieDetail? {
         do {
             let realm = try Realm(configuration: deleteIfMigration)
-            return realm.object(ofType: MovieDetail.self, forPrimaryKey: "id")
+            return realm.object(ofType: MovieDetail.self, forPrimaryKey: id)
         } catch {
             print(error.localizedDescription)
         }
