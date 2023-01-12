@@ -14,30 +14,31 @@ final class MovieDetailPresenter: MovieDetailPresenterProtocol {
     // MARK: - Private Properties
 
     private let networkService: NetworkServiceProtocol
+    private let realmService: RealmServiceProtocol
     private var movieId = 0
 
     // MARK: - Initializers
 
-    init(view: MovieDetailViewProtocol?, networkService: NetworkServiceProtocol, id: Int, router: RouterProtocol) {
+    init(
+        view: MovieDetailViewProtocol?,
+        networkService: NetworkServiceProtocol,
+        id: Int,
+        router: RouterProtocol,
+        realmService: RealmServiceProtocol
+    ) {
         self.view = view
         self.networkService = networkService
         self.router = router
+        self.realmService = realmService
         movieId = id
     }
 
     // MARK: - Public methods
 
-    func fetchMovieDetails() {
-        networkService.fetchMovieDetails(for: movieId, completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(movieDetail):
-                self.movieDetail = movieDetail
-                self.view?.setupUI(movieDetail: movieDetail)
-            case let .failure(error):
-                self.view?.failure(error)
-            }
-        })
+    func loadMovieDetails() {
+        guard let movieDetail = realmService.get(MovieDetail.self) else { return fetchMovieDetails() }
+        self.movieDetail = movieDetail
+        view?.success()
     }
 
     func fetchTrailer() {
@@ -58,7 +59,23 @@ final class MovieDetailPresenter: MovieDetailPresenterProtocol {
             switch result {
             case let .success(actors):
                 self.actors = actors
-                self.view?.succes()
+                self.view?.success()
+            case let .failure(error):
+                self.view?.failure(error)
+            }
+        })
+    }
+
+    // MARK: - Private methods
+
+    private func fetchMovieDetails() {
+        networkService.fetchMovieDetails(for: movieId, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(movieDetail):
+                self.movieDetail = movieDetail
+                self.realmService.save(items: [movieDetail])
+                self.view?.setupUI(movieDetail: movieDetail)
             case let .failure(error):
                 self.view?.failure(error)
             }

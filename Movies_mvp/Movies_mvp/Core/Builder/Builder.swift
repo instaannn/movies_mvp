@@ -8,7 +8,13 @@ final class Builder: BuilderProtocol {
     func makeMovieCatalogViewController(router: RouterProtocol) -> MovieCatalogViewController {
         let viewController = MovieCatalogViewController()
         let networkService = NetworkService()
-        let presenter = MovieCatalogPresenter(view: viewController, networkService: networkService, router: router)
+        let realmService = RealmService()
+        let presenter = MovieCatalogPresenter(
+            view: viewController,
+            networkService: networkService,
+            router: router,
+            realmService: realmService
+        )
         viewController.presenter = presenter
         return viewController
     }
@@ -16,11 +22,13 @@ final class Builder: BuilderProtocol {
     func makeMovieDetailViewController(id: Int, router: RouterProtocol) -> MovieDetailViewController {
         let viewController = MovieDetailViewController()
         let networkService = NetworkService()
+        let realmService = RealmService()
         let presenter = MovieDetailPresenter(
             view: viewController,
             networkService: networkService,
             id: id,
-            router: router
+            router: router,
+            realmService: realmService
         )
         viewController.presenter = presenter
         return viewController

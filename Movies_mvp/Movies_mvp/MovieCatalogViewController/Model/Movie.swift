@@ -1,22 +1,26 @@
 // Movie.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import SwiftyJSON
 
 /// Модель фильма
-struct Movie {
+final class Movie: Object {
     /// Название
-    let title: String
+    @Persisted var title: String
     /// Постер
-    let posterPath: String?
+    @Persisted var posterPath: String?
     /// Рейтинг
-    let voteAverage: Double
+    @Persisted var voteAverage: Double
     /// Дата релиза
-    let releaseDateString: String
+    @Persisted var releaseDateString: String
+    /// Тип фильма
+    @Persisted var movieType: String
     /// id фильма
-    let id: Int
+    @Persisted(primaryKey: true) var id = 0
 
-    init(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         title = json["title"].stringValue
         posterPath = json["poster_path"].string
         voteAverage = json["vote_average"].doubleValue

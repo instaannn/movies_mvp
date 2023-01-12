@@ -3,7 +3,7 @@
 
 /// Протокол детального описания фильма
 protocol MovieDetailViewProtocol: AnyObject {
-    func succes()
+    func success()
     func failure(_ error: Error)
     func setupUI(movieDetail: MovieDetail?)
 }

@@ -22,7 +22,6 @@ final class MovieDetailViewController: UIViewController {
         static let goToImdbButtonImageName = "chevron.right"
         static let gradientImageViewName = "gradient"
         static let stringFormat = "%.1f"
-        static let genresLabelText = "Жанры:"
         static let errorTitle = "Ошибка"
     }
 
@@ -39,7 +38,6 @@ final class MovieDetailViewController: UIViewController {
     private lazy var goToImdbButton = makeGoToImdbButton()
     private lazy var releaseDateLabel = makeBoldLabel(size: 18)
     private lazy var watchTrailerButton = makeWatchTrailerButton()
-    private lazy var genresLabel = makeBoldLabel(size: 16)
     private lazy var overviewLabel = makeOverviewLabel()
     private lazy var collectionView = makeCollectionView()
     private lazy var collectionViewFlowLayout = makeCollectionViewFlowLayout()
@@ -69,8 +67,8 @@ final class MovieDetailViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func fetchMovieDetails() {
-        presenter?.fetchMovieDetails()
+    private func loadMovieDetails() {
+        presenter?.loadMovieDetails()
     }
 
     private func fetchTrailer() {
@@ -96,7 +94,6 @@ final class MovieDetailViewController: UIViewController {
         guard let movieDetail = movieDetail else { return }
         setPostersImageView(movieDetail: movieDetail)
         setPosterImageView(movieDetail: movieDetail)
-        setGenresLabel(movieDetail: movieDetail)
         titleLabel.text = movieDetail.title
         setTimeLabel(movieDetail: movieDetail)
         setVoteAverageLabel(movieDetail: movieDetail)
@@ -126,10 +123,6 @@ final class MovieDetailViewController: UIViewController {
         let vote = String(format: Constants.stringFormat, movieDetail.voteAverage)
         voteAverageLabel.text = vote
         voteAverageLabel.textColor = movieDetail.voteAverage < 7.0 ? .systemRed : .label
-    }
-
-    private func setGenresLabel(movieDetail: MovieDetail) {
-        genresLabel.text = "\(Constants.genresLabelText) \(movieDetail.genres.joined(separator: ", "))"
     }
 
     private func presentSafariViewController(url: URL) {
@@ -165,7 +158,7 @@ final class MovieDetailViewController: UIViewController {
 // MARK: - MovieDetailViewProtocol
 
 extension MovieDetailViewController: MovieDetailViewProtocol {
-    func succes() {
+    func success() {
         collectionView.reloadData()
     }
 
@@ -212,7 +205,6 @@ private extension MovieDetailViewController {
             voteAverageStackView,
             goToImdbButton,
             watchTrailerButton,
-            genresLabel,
             overviewLabel,
             collectionView
         ].forEach {
@@ -226,7 +218,7 @@ private extension MovieDetailViewController {
     }
 
     func setupBinding() {
-        fetchMovieDetails()
+        loadMovieDetails()
         fetchTrailer()
         fetchCast()
     }
@@ -241,7 +233,6 @@ private extension MovieDetailViewController {
             voteAverageStackView,
             goToImdbButton,
             watchTrailerButton,
-            genresLabel,
             overviewLabel,
             collectionView
         ].forEach {
@@ -289,11 +280,7 @@ private extension MovieDetailViewController {
             watchTrailerButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 304),
             watchTrailerButton.heightAnchor.constraint(equalToConstant: 36),
 
-            genresLabel.topAnchor.constraint(equalTo: watchTrailerButton.bottomAnchor, constant: 35),
-            genresLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            genresLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-
-            overviewLabel.topAnchor.constraint(equalTo: genresLabel.bottomAnchor, constant: 10),
+            overviewLabel.topAnchor.constraint(equalTo: watchTrailerButton.bottomAnchor, constant: 35),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 

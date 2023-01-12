@@ -14,38 +14,41 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
     // MARK: - Private Properties
 
     private let networkService: NetworkServiceProtocol
+    private let realmService: RealmServiceProtocol
     private var hasNextPage = true
     private var currentPage = 1
     private var currentRequestType: RequestType = .popular
 
     // MARK: - Initializers
 
-    init(view: MovieCatalogViewProtocol?, networkService: NetworkServiceProtocol, router: RouterProtocol) {
+    init(
+        view: MovieCatalogViewProtocol?,
+        networkService: NetworkServiceProtocol,
+        router: RouterProtocol,
+        realmService: RealmServiceProtocol
+    ) {
         self.view = view
         self.networkService = networkService
         self.router = router
+        self.realmService = realmService
     }
 
     // MARK: - Public methods
 
-    func fetchMovies(requestType: RequestType) {
-        networkService.fetchMovies(page: currentPage, requestType: requestType, completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case let .success(data):
-                self.movies += data
-                self.hasNextPage = true
-                self.view?.succes()
-            case let .failure(error):
-                self.view?.failure(error)
-            }
-        })
+    func loadMovies(requestType: RequestType) {
+        guard let movies = realmService.getMovies(Movie.self, movieType: requestType.rawValue) else { return }
+        if !movies.isEmpty {
+            self.movies = Array(movies)
+            view?.succes()
+        } else {
+            fetchMovies(requestType: requestType)
+        }
     }
 
     func updateNextPage() {
         if hasNextPage {
             currentPage += 1
-            fetchMovies(requestType: currentRequestType)
+            loadMovies(requestType: currentRequestType)
             hasNextPage = false
         }
     }
@@ -60,15 +63,15 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
         case 0:
             updateForSegment()
             currentRequestType = .popular
-            fetchMovies(requestType: currentRequestType)
+            loadMovies(requestType: currentRequestType)
         case 1:
             updateForSegment()
             currentRequestType = .topRated
-            fetchMovies(requestType: currentRequestType)
+            loadMovies(requestType: currentRequestType)
         case 2:
             updateForSegment()
             currentRequestType = .upcoming
-            fetchMovies(requestType: currentRequestType)
+            loadMovies(requestType: currentRequestType)
         default:
             break
         }
@@ -76,5 +79,25 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
 
     func selectMovie(id: Int) {
         router?.showMovieDetailViewController(id: id)
+    }
+
+    // MARK: - Private Methods
+
+    private func fetchMovies(requestType: RequestType) {
+        networkService.fetchMovies(page: currentPage, requestType: requestType, completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(data):
+                data.forEach { movie in
+                    movie.movieType = requestType.rawValue
+                }
+                self.movies += data
+                self.realmService.save(items: self.movies)
+                self.hasNextPage = true
+                self.view?.succes()
+            case let .failure(error):
+                self.view?.failure(error)
+            }
+        })
     }
 }
