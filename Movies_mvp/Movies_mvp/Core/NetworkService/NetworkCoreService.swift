@@ -7,6 +7,16 @@ import SwiftyJSON
 
 /// Сетевые запросы
 class NetworkCoreService {
+    // MARK: - Private Properties
+
+    private var keychainService: StorageServiceProtocol
+
+    // MARK: - Initializers
+
+    init(keychainService: StorageServiceProtocol) {
+        self.keychainService = keychainService
+    }
+
     // MARK: - Public methods
 
     func downloadJson(urlString: String, completion: @escaping (Result<JSON, Error>) -> Void) {
@@ -52,6 +62,6 @@ class NetworkCoreService {
     // MARK: - Private Methods
 
     private func getToken() -> String {
-        StorageService.shared.get("token") ?? ""
+        keychainService.get("token") ?? ""
     }
 }

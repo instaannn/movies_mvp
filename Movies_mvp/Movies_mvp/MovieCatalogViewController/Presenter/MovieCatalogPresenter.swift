@@ -21,6 +21,7 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
 
     private let networkService: NetworkServiceProtocol
     private let realmService: RealmServiceProtocol
+    private let storageService: StorageServiceProtocol
     private var hasNextPage = true
     private var currentPage = 1
     private var currentRequestType: RequestType = .popular
@@ -31,12 +32,14 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
         view: MovieCatalogViewProtocol?,
         networkService: NetworkServiceProtocol,
         router: RouterProtocol,
-        realmService: RealmServiceProtocol
+        realmService: RealmServiceProtocol,
+        storageService: StorageServiceProtocol
     ) {
         self.view = view
         self.networkService = networkService
         self.router = router
         self.realmService = realmService
+        self.storageService = storageService
         saveToken()
     }
 
@@ -109,6 +112,6 @@ final class MovieCatalogPresenter: MovieCatalogPresenterProtocol {
     }
 
     private func saveToken() {
-        StorageService.shared.set(Constants.key)
+        storageService.set(Constants.key)
     }
 }

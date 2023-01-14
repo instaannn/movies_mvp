@@ -5,18 +5,14 @@ import Foundation
 import KeychainAccess
 
 /// Хранилище данных
-final class StorageService {
-    // MARK: - Public Properties
-
-    static let shared = StorageService()
-
+final class StorageService: StorageServiceProtocol {
     // MARK: - Private Properties
 
     private let keychainAccess = KeychainAccess.Keychain()
 
     // MARK: - Initializers
 
-    private init() {}
+    init() {}
 
     // MARK: - Public methods
 

@@ -30,6 +30,7 @@
 		851E7243290AA162008A3DE7 /* ActorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E7242290AA162008A3DE7 /* ActorCollectionViewCell.swift */; };
 		851E7245290ABB27008A3DE7 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E7244290ABB27008A3DE7 /* UIViewController+Extension.swift */; };
 		851E7250290B3007008A3DE7 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E724F290B3006008A3DE7 /* RequestType.swift */; };
+		852E61CE29733B6200511CED /* StorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852E61CD29733B6200511CED /* StorageServiceProtocol.swift */; };
 		85589E94290FD27A00A43BE6 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85589E93290FD27A00A43BE6 /* UIImage+Extension.swift */; };
 		85589E96290FDA5300A43BE6 /* NetworkCoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85589E95290FDA5300A43BE6 /* NetworkCoreService.swift */; };
 		85589E98290FE2B900A43BE6 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85589E97290FE2B900A43BE6 /* ImageCache.swift */; };
@@ -80,6 +81,7 @@
 		851E7242290AA162008A3DE7 /* ActorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorCollectionViewCell.swift; sourceTree = "<group>"; };
 		851E7244290ABB27008A3DE7 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		851E724F290B3006008A3DE7 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		852E61CD29733B6200511CED /* StorageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceProtocol.swift; sourceTree = "<group>"; };
 		85589E93290FD27A00A43BE6 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		85589E95290FDA5300A43BE6 /* NetworkCoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCoreService.swift; sourceTree = "<group>"; };
 		85589E97290FE2B900A43BE6 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				8559419C29708F65005751F2 /* StorageService.swift */,
+				852E61CD29733B6200511CED /* StorageServiceProtocol.swift */,
 			);
 			path = StorageService;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				85D4199F296DB46A0065A8E8 /* Builder.swift in Sources */,
 				85594185296EEF5E005751F2 /* RealmService.swift in Sources */,
 				851E721E2907D829008A3DE7 /* ImageLoader.swift in Sources */,
+				852E61CE29733B6200511CED /* StorageServiceProtocol.swift in Sources */,
 				85D419A9296DF7FA0065A8E8 /* MovieDetailViewProtocol.swift in Sources */,
 				851E7236290997EC008A3DE7 /* MovieDetail.swift in Sources */,
 				851E71EC29069D00008A3DE7 /* AppDelegate.swift in Sources */,
