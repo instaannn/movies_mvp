@@ -1,30 +1,32 @@
 // MovieDetail.swift
 // Copyright © RoadMap. All rights reserved.
 
+import RealmSwift
 import SwiftyJSON
 
 /// Модель детального описания фильма
-struct MovieDetail {
+final class MovieDetail: Object {
     /// Фоновая каринка
-    let backdropPath: String
+    @Persisted var backdropPath: String
     /// Постер
-    let posterPath: String?
+    @Persisted var posterPath: String?
     /// Название
-    let title: String
+    @Persisted var title: String
     /// Время фильма
-    let runtime: Int?
+    @Persisted var runtime: Int?
     /// Рейтинг
-    let voteAverage: Double
+    @Persisted var voteAverage: Double
     /// Ссылка на imdbId
-    let imdbId: String?
+    @Persisted var imdbId: String?
     /// Дата релиза
-    let releaseDateString: String
-    /// Жанры
-    let genres: [String]
+    @Persisted var releaseDateString: String
     /// Описание
-    let overview: String
+    @Persisted var overview: String
+    /// Id фильма
+    @Persisted(primaryKey: true) var id = 0
 
-    init(json: JSON) {
+    convenience init(json: JSON) {
+        self.init()
         backdropPath = json["backdrop_path"].stringValue
         posterPath = json["poster_path"].string
         title = json["title"].stringValue
@@ -32,7 +34,7 @@ struct MovieDetail {
         voteAverage = json["vote_average"].doubleValue
         imdbId = json["imdb_id"].string
         releaseDateString = json["release_date"].stringValue
-        genres = json["genres"].arrayValue.map { $0["name"].stringValue }
         overview = json["overview"].stringValue
+        id = json["id"].intValue
     }
 }

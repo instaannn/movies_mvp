@@ -30,9 +30,16 @@
 		851E7243290AA162008A3DE7 /* ActorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E7242290AA162008A3DE7 /* ActorCollectionViewCell.swift */; };
 		851E7245290ABB27008A3DE7 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E7244290ABB27008A3DE7 /* UIViewController+Extension.swift */; };
 		851E7250290B3007008A3DE7 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851E724F290B3006008A3DE7 /* RequestType.swift */; };
+		852E61CE29733B6200511CED /* StorageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852E61CD29733B6200511CED /* StorageServiceProtocol.swift */; };
 		85589E94290FD27A00A43BE6 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85589E93290FD27A00A43BE6 /* UIImage+Extension.swift */; };
 		85589E96290FDA5300A43BE6 /* NetworkCoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85589E95290FDA5300A43BE6 /* NetworkCoreService.swift */; };
 		85589E98290FE2B900A43BE6 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85589E97290FE2B900A43BE6 /* ImageCache.swift */; };
+		85594180296EEB33005751F2 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 8559417F296EEB33005751F2 /* Realm */; };
+		85594182296EEB33005751F2 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 85594181296EEB33005751F2 /* RealmSwift */; };
+		85594185296EEF5E005751F2 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85594184296EEF5E005751F2 /* RealmService.swift */; };
+		8559419029704EA7005751F2 /* RealmServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8559418F29704EA7005751F2 /* RealmServiceProtocol.swift */; };
+		8559419D29708F65005751F2 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8559419C29708F65005751F2 /* StorageService.swift */; };
+		855941A32970B1F6005751F2 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 855941A22970B1F6005751F2 /* KeychainAccess */; };
 		85D41995296C5F780065A8E8 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 85D41994296C5F780065A8E8 /* Alamofire */; };
 		85D41998296C5FF40065A8E8 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 85D41997296C5FF40065A8E8 /* SwiftyJSON */; };
 		85D4199D296DB4320065A8E8 /* BuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85D4199C296DB4320065A8E8 /* BuilderProtocol.swift */; };
@@ -74,9 +81,13 @@
 		851E7242290AA162008A3DE7 /* ActorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorCollectionViewCell.swift; sourceTree = "<group>"; };
 		851E7244290ABB27008A3DE7 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		851E724F290B3006008A3DE7 /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		852E61CD29733B6200511CED /* StorageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageServiceProtocol.swift; sourceTree = "<group>"; };
 		85589E93290FD27A00A43BE6 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		85589E95290FDA5300A43BE6 /* NetworkCoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCoreService.swift; sourceTree = "<group>"; };
 		85589E97290FE2B900A43BE6 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		85594184296EEF5E005751F2 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		8559418F29704EA7005751F2 /* RealmServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServiceProtocol.swift; sourceTree = "<group>"; };
+		8559419C29708F65005751F2 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		85D4199C296DB4320065A8E8 /* BuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderProtocol.swift; sourceTree = "<group>"; };
 		85D4199E296DB46A0065A8E8 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		85D419A1296DD28F0065A8E8 /* MovieCatalogViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCatalogViewProtocol.swift; sourceTree = "<group>"; };
@@ -95,8 +106,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85594182296EEB33005751F2 /* RealmSwift in Frameworks */,
+				85594180296EEB33005751F2 /* Realm in Frameworks */,
 				85D41998296C5FF40065A8E8 /* SwiftyJSON in Frameworks */,
 				85D41995296C5F780065A8E8 /* Alamofire in Frameworks */,
+				855941A32970B1F6005751F2 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +182,8 @@
 		851E72062906EEC4008A3DE7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8559419B29708F50005751F2 /* StorageService */,
+				85594183296EEF33005751F2 /* RealmService */,
 				85D419AE296E169A0065A8E8 /* Router */,
 				85D4199B296DB41F0065A8E8 /* Builder */,
 				851E720A2906EFEC008A3DE7 /* NetworkApi */,
@@ -278,6 +294,24 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		85594183296EEF33005751F2 /* RealmService */ = {
+			isa = PBXGroup;
+			children = (
+				85594184296EEF5E005751F2 /* RealmService.swift */,
+				8559418F29704EA7005751F2 /* RealmServiceProtocol.swift */,
+			);
+			path = RealmService;
+			sourceTree = "<group>";
+		};
+		8559419B29708F50005751F2 /* StorageService */ = {
+			isa = PBXGroup;
+			children = (
+				8559419C29708F65005751F2 /* StorageService.swift */,
+				852E61CD29733B6200511CED /* StorageServiceProtocol.swift */,
+			);
+			path = StorageService;
+			sourceTree = "<group>";
+		};
 		85D41999296DACD30065A8E8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +395,9 @@
 			packageProductDependencies = (
 				85D41994296C5F780065A8E8 /* Alamofire */,
 				85D41997296C5FF40065A8E8 /* SwiftyJSON */,
+				8559417F296EEB33005751F2 /* Realm */,
+				85594181296EEB33005751F2 /* RealmSwift */,
+				855941A22970B1F6005751F2 /* KeychainAccess */,
 			);
 			productName = movies_mvc;
 			productReference = 851E71E829069D00008A3DE7 /* Movies_mvp.app */;
@@ -393,6 +430,8 @@
 			packageReferences = (
 				85D41993296C5F780065A8E8 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				85D41996296C5FF40065A8E8 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				8559417E296EEB33005751F2 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				855941A12970B1F6005751F2 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 851E71E929069D00008A3DE7 /* Products */;
 			projectDirPath = "";
@@ -463,7 +502,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				85D4199F296DB46A0065A8E8 /* Builder.swift in Sources */,
+				85594185296EEF5E005751F2 /* RealmService.swift in Sources */,
 				851E721E2907D829008A3DE7 /* ImageLoader.swift in Sources */,
+				852E61CE29733B6200511CED /* StorageServiceProtocol.swift in Sources */,
 				85D419A9296DF7FA0065A8E8 /* MovieDetailViewProtocol.swift in Sources */,
 				851E7236290997EC008A3DE7 /* MovieDetail.swift in Sources */,
 				851E71EC29069D00008A3DE7 /* AppDelegate.swift in Sources */,
@@ -472,6 +513,7 @@
 				85D419A6296DD30B0065A8E8 /* MovieCatalogPresenterProtocol.swift in Sources */,
 				85D419B4296E180A0065A8E8 /* Router.swift in Sources */,
 				851E7216290725CE008A3DE7 /* MovieCatalogTableViewCell.swift in Sources */,
+				8559419029704EA7005751F2 /* RealmServiceProtocol.swift in Sources */,
 				851E7232290997D3008A3DE7 /* MovieDetailViewController.swift in Sources */,
 				85589E96290FDA5300A43BE6 /* NetworkCoreService.swift in Sources */,
 				851E7240290A9E5C008A3DE7 /* Actor.swift in Sources */,
@@ -485,6 +527,7 @@
 				85D419A2296DD28F0065A8E8 /* MovieCatalogViewProtocol.swift in Sources */,
 				851E71EE29069D00008A3DE7 /* SceneDelegate.swift in Sources */,
 				851E723C290A9D6E008A3DE7 /* Video.swift in Sources */,
+				8559419D29708F65005751F2 /* StorageService.swift in Sources */,
 				851E7243290AA162008A3DE7 /* ActorCollectionViewCell.swift in Sources */,
 				85D419B0296E16A80065A8E8 /* RouterMainProtocol.swift in Sources */,
 				85D419A4296DD3000065A8E8 /* MovieCatalogPresenter.swift in Sources */,
@@ -707,6 +750,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8559417E296EEB33005751F2 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		855941A12970B1F6005751F2 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		85D41993296C5F780065A8E8 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -726,6 +785,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8559417F296EEB33005751F2 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8559417E296EEB33005751F2 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		85594181296EEB33005751F2 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8559417E296EEB33005751F2 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+		855941A22970B1F6005751F2 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 855941A12970B1F6005751F2 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		85D41994296C5F780065A8E8 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 85D41993296C5F780065A8E8 /* XCRemoteSwiftPackageReference "Alamofire" */;
