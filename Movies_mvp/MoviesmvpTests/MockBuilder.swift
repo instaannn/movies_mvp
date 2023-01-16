@@ -4,7 +4,7 @@
 @testable import Movies_mvp
 import UIKit
 
-/// Мок билдера
+/// Мок сборщика модулей
 final class MockBuilder: BuilderProtocol {
     // MARK: - Public Methods
 

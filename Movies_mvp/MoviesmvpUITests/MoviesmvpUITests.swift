@@ -9,6 +9,8 @@ final class MoviesmvpUITests: XCTestCase {
 
     private enum Constants {
         static let identifierCatalogTableView = "MovieCatalogTableView"
+        static let shareButtonName = "Share"
+        static let movieDetailViewName = "Movies_mvp.MovieDetailView"
     }
 
     // MARK: - Private Properties
@@ -25,7 +27,7 @@ final class MoviesmvpUITests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func testHasATableView() {
-        XCTAssertNotNil(app.tables.matching(identifier: Contants.identifierCatalogTableView))
+        XCTAssertNotNil(app.tables.matching(identifier: Constants.identifierCatalogTableView))
     }
 
     func testTableViews() {
@@ -35,8 +37,8 @@ final class MoviesmvpUITests: XCTestCase {
         movieCatalogTableView.element.swipeDown()
         app.cells.firstMatch.tap()
 
-        let moviesMvpMoviedetailviewNavigationBar = app.navigationBars["Movies_mvp.MovieDetailView"]
-        moviesMvpMoviedetailviewNavigationBar.buttons["Share"].tap()
+        let moviesMvpMoviedetailviewNavigationBar = app.navigationBars[Constants.movieDetailViewName]
+        moviesMvpMoviedetailviewNavigationBar.buttons[Constants.shareButtonName].tap()
     }
 
     func testLaunchPerformance() throws {
