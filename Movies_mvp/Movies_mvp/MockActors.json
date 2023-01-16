@@ -1,0 +1,75 @@
+{
+  "id" : 76600,
+  "cast" : [
+    {
+      "known_for_department" : "Acting",
+      "gender" : 2,
+      "credit_id" : "63bedfca5258ae007dbcf660",
+      "name" : "Sam Worthington",
+      "order" : 0,
+      "original_name" : "Sam Worthington",
+      "profile_path" : "\/blKKsHlJIL9PmUQZB8f3YmMBW5Y.jpg",
+      "popularity" : 90.578999999999994,
+      "cast_id" : 209,
+      "id" : 65731,
+      "character" : "Jake Sully",
+      "adult" : false
+    },
+    {
+      "known_for_department" : "Acting",
+      "gender" : 1,
+      "credit_id" : "52fe4943c3a368484e122b4d",
+      "name" : "Zoe Saldaña",
+      "order" : 1,
+      "original_name" : "Zoe Saldaña",
+      "profile_path" : "\/vQBwmsSOAd0JDaEcZ5p43J9xzsY.jpg",
+      "popularity" : 74.260000000000005,
+      "cast_id" : 3,
+      "id" : 8691,
+      "character" : "Neytiri",
+      "adult" : false
+    },
+    {
+      "known_for_department" : "Acting",
+      "gender" : 1,
+      "credit_id" : "52fe4943c3a368484e122b51",
+      "name" : "Sigourney Weaver",
+      "order" : 2,
+      "original_name" : "Sigourney Weaver",
+      "profile_path" : "\/flfhep27iBxseZIlxOMHt6zJFX1.jpg",
+      "popularity" : 52.595999999999997,
+      "cast_id" : 4,
+      "id" : 10205,
+      "character" : "Kiri \/ Dr. Grace Augustine",
+      "adult" : false
+    },
+    {
+      "known_for_department" : "Acting",
+      "gender" : 2,
+      "credit_id" : "59cbe0159251412b8b0159c1",
+      "name" : "Britain Dalton",
+      "order" : 3,
+      "original_name" : "Britain Dalton",
+      "profile_path" : "\/zB42Yop5X3CPLzguun11XqdcLkW.jpg",
+      "popularity" : 26.585000000000001,
+      "cast_id" : 29,
+      "id" : 1663672,
+      "character" : "Lo'ak",
+      "adult" : false
+    },
+    {
+      "known_for_department" : "Acting",
+      "gender" : 2,
+      "credit_id" : "54d9ff969251410a36001935",
+      "name" : "Stephen Lang",
+      "order" : 4,
+      "original_name" : "Stephen Lang",
+      "profile_path" : "\/xEBuFWrCKDQD6r6CZK71GYIc4UW.jpg",
+      "popularity" : 44.475999999999999,
+      "cast_id" : 7,
+      "id" : 32747,
+      "character" : "Colonel Miles Quaritch",
+      "adult" : false
+    }
+  ]
+}

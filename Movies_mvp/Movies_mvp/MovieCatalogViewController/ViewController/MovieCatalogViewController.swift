@@ -11,6 +11,7 @@ final class MovieCatalogViewController: UIViewController {
         static let segmentControlItems = ["Popular", "TopRated", "Upcoming"]
         static let cellIdentifier = "Cell"
         static let errorTitle = "Ошибка"
+        static let accessibilityIdentifier = "MovieCatalogTableView"
     }
 
     // MARK: - Private visual Components
@@ -31,6 +32,7 @@ final class MovieCatalogViewController: UIViewController {
         setupBinding()
         setupNavigationController()
         setupCategorySegmentControl()
+        setupTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +77,10 @@ final class MovieCatalogViewController: UIViewController {
 
     private func updateForSegment() {
         presenter?.updateForSegment()
+    }
+
+    private func setupTableView() {
+        tableView.accessibilityIdentifier = Constants.accessibilityIdentifier
     }
 
     @objc private func segmentControlAction(_ sender: UISegmentedControl) {

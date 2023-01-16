@@ -8,7 +8,7 @@ final class Router: RouterProtocol {
     // MARK: - Public Properties
 
     var navigationController: UINavigationController?
-    var builder: BuilderProtocol?
+    var builder: BuilderProtocol
 
     // MARK: - Initializers
 
@@ -21,15 +21,14 @@ final class Router: RouterProtocol {
 
     func movieCatalogViewController() {
         if let navigationController = navigationController {
-            guard let movieCatalogViewController = builder?.makeMovieCatalogViewController(router: self) else { return }
+            let movieCatalogViewController = builder.makeMovieCatalogViewController(router: self)
             navigationController.viewControllers = [movieCatalogViewController]
         }
     }
 
     func showMovieDetailViewController(id: Int) {
         if let navigationController = navigationController {
-            guard let movieDetailViewController = builder?.makeMovieDetailViewController(id: id, router: self)
-            else { return }
+            let movieDetailViewController = builder.makeMovieDetailViewController(id: id, router: self)
             navigationController.pushViewController(movieDetailViewController, animated: true)
         }
     }

@@ -1,11 +1,13 @@
 // Builder.swift
 // Copyright © RoadMap. All rights reserved.
 
+import UIKit
+
 /// Билдер
 final class Builder: BuilderProtocol {
     // MARK: - Public methods
 
-    func makeMovieCatalogViewController(router: RouterProtocol) -> MovieCatalogViewController {
+    func makeMovieCatalogViewController(router: RouterProtocol) -> UIViewController {
         let viewController = MovieCatalogViewController()
         let storageService = StorageService()
         let networkService = NetworkService(keychainService: storageService)
@@ -21,7 +23,7 @@ final class Builder: BuilderProtocol {
         return viewController
     }
 
-    func makeMovieDetailViewController(id: Int, router: RouterProtocol) -> MovieDetailViewController {
+    func makeMovieDetailViewController(id: Int, router: RouterProtocol) -> UIViewController {
         let viewController = MovieDetailViewController()
         let storageService = StorageService()
         let networkService = NetworkService(keychainService: storageService)
